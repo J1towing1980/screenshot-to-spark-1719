@@ -9,7 +9,7 @@ export const Route = createFileRoute("/quote")({
   component: Page,
 });
 
-function Field({ label, name, error, optional, children }: { label: string; name: string; error?: string; optional?: boolean; children: React.ReactNode }) {
+function Field({ label, name, error, optional, children }: { label: string; name: string; error?: string | undefined; optional?: boolean; children: React.ReactNode }) {
   return (
     <div>
       <label htmlFor={name} className="mb-1.5 block text-sm font-semibold">

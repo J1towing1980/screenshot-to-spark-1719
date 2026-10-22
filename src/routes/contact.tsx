@@ -12,15 +12,15 @@ function Page() {
   const items = [
     { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },
     { icon: Phone, label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\D/g, "")}` },
-    { icon: MapPin, label: "Location", value: site.location },
-    { icon: Clock, label: "Hours", value: site.hours },
+    { icon: MapPin, label: "Location", value: site.location, href: undefined },
+    { icon: Clock, label: "Hours", value: site.hours, href: undefined },
   ];
   return (
     <>
       <PageHero eyebrow="Contact" title="Let's talk about your business." intro="Reach out directly, or send a project request and we'll follow up with next steps." />
       <Section>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map(({ icon: Icon, label, value, href }) => (
+          {items.map(({ icon: Icon, label, value, href }: { icon: typeof Mail; label: string; value: string; href: string | undefined }) => (
             <div key={label} className="rounded-xl border border-border bg-card p-6">
               <Icon className="text-accent" size={20} />
               <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>
