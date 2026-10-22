@@ -28,7 +28,7 @@ function Page() {
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    if (data.website) return; // honeypot: bots fill hidden field
+    if (data["website"]) return; // honeypot: bots fill hidden field
     const errs = validateQuote(data);
     setErrors(errs);
     if (Object.keys(errs).length === 0) setDone(true);
