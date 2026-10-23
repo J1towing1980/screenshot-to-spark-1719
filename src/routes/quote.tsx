@@ -24,14 +24,30 @@ function Field({ label, name, error, optional, children }: { label: string; name
 function Page() {
   const [errors, setErrors] = useState<QuoteErrors>({});
   const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [formError, setFormError] = useState("");
+  const submit = useServerFn(submitQuote);
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    if (data["website"]) return; // honeypot: bots fill hidden field
     const errs = validateQuote(data);
     setErrors(errs);
-    if (Object.keys(errs).length === 0) setDone(true);
+    setFormError("");
+    if (Object.keys(errs).length) return;
+    setBusy(true);
+    try {
+      const res = await submit({ data });
+      if (res.ok) setDone(true);
+      else {
+        setErrors((res.fieldErrors ?? {}) as QuoteErrors);
+        setFormError(res.error);
+      }
+    } catch {
+      setFormError(`Something went wrong sending your request. Please try again or email ${site.email}.`);
+    } finally {
+      setBusy(false);
+    }
   }
 
   const aria = (n: keyof QuoteErrors) => ({ id: n, name: n, "aria-invalid": !!errors[n], "aria-describedby": errors[n] ? `${n}-error` : undefined });
@@ -42,12 +58,12 @@ function Page() {
       <Section>
         {done ? (
           <div role="status" className="max-w-2xl rounded-xl border border-border bg-card p-8">
-            <h2 className="text-2xl font-medium">Your details look good — one more step</h2>
+            <h2 className="text-2xl font-medium">Thanks — we received your request</h2>
             <p className="mt-3 text-muted-foreground">
-              Online submissions aren't connected yet, so this form did not send your request. Please email us at{" "}
-              <a className="font-semibold text-foreground underline" href={`mailto:${site.email}`}>{site.email}</a> and we'll get right back to you.
+              Your quote request was saved. We'll review your project details and follow up by email.
             </p>
           </div>
+
         ) : (
           <form noValidate onSubmit={onSubmit} className="grid max-w-3xl gap-6 md:grid-cols-2">
             <div className="hidden" aria-hidden="true">
