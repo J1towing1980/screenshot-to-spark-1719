@@ -3,6 +3,8 @@ import { useState, type FormEvent } from "react";
 import { PageHero, Section, meta } from "@/components/site/Layout";
 import { serviceOptions, site } from "@/content/site";
 import { validateQuote, type QuoteErrors } from "@/lib/quote";
+import { submitQuote } from "@/lib/quote.functions";
+import { useServerFn } from "@tanstack/react-start";
 
 export const Route = createFileRoute("/quote")({
   head: () => meta("Request a Free Quote", "Tell us about your website or software project and receive a clear, no-pressure quote."),
@@ -99,7 +101,8 @@ function Page() {
               </select>
             </Field>
             <div className="md:col-span-2">
-              <button type="submit" className="btn-primary">Request my quote</button>
+              {formError && <p role="alert" className="mb-4 text-sm text-destructive">{formError}</p>}
+              <button type="submit" disabled={busy} className="btn-primary">{busy ? "Sending…" : "Request my quote"}</button>
             </div>
           </form>
         )}
