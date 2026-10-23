@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Structure
+- All editable copy (company info, services, projects, nav) lives in src/content/site.ts so pages never need rewriting for content changes.
+- Shared page shell/sections live in src/components/site/Layout.tsx; quote validation is a pure function in src/lib/quote.ts with tests.
