@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { nav, site } from "@/content/site";
 import logoPrimary from "@/assets/caldren-logo-primary.png.asset.json";
 import logoWhite from "@/assets/caldren-logo-white.png.asset.json";
+import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -11,7 +12,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
         <Link to="/" aria-label={`${site.name} — home`} className="flex items-center">
-          <img src={logoPrimary.url} alt={site.name} className="h-11 w-auto sm:h-12 md:h-14" />
+          <img src={logoPrimary.url} alt="" width={1294} height={269} className="h-11 w-auto max-w-full sm:h-12 md:h-14" />
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
           {nav.map((n) => (
@@ -21,14 +22,14 @@ export function SiteHeader() {
           ))}
           <Link to="/quote" className="btn-primary !py-2 !px-4 text-sm">Get a Free Quote</Link>
         </nav>
-        <button className="md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
+        <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
-        </button>
+        </Button>
       </div>
       {open && (
-        <nav aria-label="Mobile" className="container-site flex flex-col gap-1 pb-5 md:hidden">
+        <nav id="mobile-navigation" aria-label="Mobile" className="container-site flex flex-col gap-1 pb-5 md:hidden">
           {nav.map((n) => (
-            <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-2 text-base font-medium">{n.label}</Link>
+            <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="flex min-h-11 items-center py-2 text-base font-medium">{n.label}</Link>
           ))}
           <Link to="/quote" onClick={() => setOpen(false)} className="btn-primary mt-2">Get a Free Quote</Link>
         </nav>
@@ -42,7 +43,7 @@ export function SiteFooter() {
     <footer className="bg-ink text-ink-foreground">
       <div className="container-site grid gap-10 py-14 md:grid-cols-3">
         <div>
-          <img src={logoWhite.url} alt={site.name} className="h-12 w-auto md:h-14" />
+          <img src={logoWhite.url} alt={site.name} width={1256} height={267} loading="lazy" className="h-12 w-auto max-w-full md:h-14" />
           <p className="mt-3 max-w-xs text-sm text-ink-muted">{site.tagline} for small and medium-sized businesses.</p>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-2 text-sm">
@@ -50,7 +51,7 @@ export function SiteFooter() {
           <Link to="/quote" className="text-ink-muted hover:text-ink-foreground">Request a Quote</Link>
         </nav>
         <div className="text-sm text-ink-muted">
-          <p>{site.email}</p><p>{site.phone}</p><p>{site.location}</p>
+          <p><a href={`mailto:${site.email}`} className="hover:underline">{site.email}</a></p><p><a href={`tel:${site.phone.replace(/\D/g, "")}`} className="hover:underline">{site.phone}</a></p><p>{site.location}</p>
         </div>
       </div>
       <div className="border-t border-ink-border">
@@ -77,7 +78,7 @@ export function FeatureGrid({ items }: { items: { title: string; body: string }[
     <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
       {items.map((i) => (
         <div key={i.title} className="bg-card p-7 transition-colors hover:bg-background">
-          <h3 className="text-xl font-medium">{i.title}</h3>
+          <h2 className="text-xl font-medium">{i.title}</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{i.body}</p>
         </div>
       ))}
@@ -103,9 +104,11 @@ export function CtaBand() {
   );
 }
 
-export function meta(title: string, description: string) {
+export function meta(title: string, description: string, path?: string) {
   const full = `${title} | ${site.name}`;
+  const url = path === undefined ? undefined : new URL(path, "https://caldrentech.com").href;
   return {
+    links: url ? [{ rel: "canonical", href: url }] : [],
     meta: [
       { title: full },
       { name: "description", content: description },
@@ -113,6 +116,7 @@ export function meta(title: string, description: string) {
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      ...(url ? [{ property: "og:url", content: url }] : []),
     ],
   };
 }

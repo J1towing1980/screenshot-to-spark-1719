@@ -3,7 +3,8 @@ import { CtaBand, FeatureGrid, PageHero, Section, meta } from "@/components/site
 import { websiteServices } from "@/content/site";
 
 export const Route = createFileRoute("/websites")({
-  head: () => meta("Website Development Services", "Business websites, redesigns, landing pages, mobile optimization, and maintenance for small and medium-sized businesses."),
+  staticData: { sitemap: true },
+  head: () => meta("Website Development Services", "Business websites, redesigns, landing pages, mobile optimization, and maintenance for small and medium-sized businesses.", "/websites"),
   component: Page,
 });
 

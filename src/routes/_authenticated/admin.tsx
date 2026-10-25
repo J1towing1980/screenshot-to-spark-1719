@@ -7,6 +7,7 @@ import { listQuotes } from "@/lib/quote.functions";
 const quotesQuery = queryOptions({ queryKey: ["admin-quotes"], queryFn: () => listQuotes() });
 
 export const Route = createFileRoute("/_authenticated/admin")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [...meta("Admin Quote Requests", "Private quote request dashboard for the Caldren Technologies owner.").meta, { name: "robots", content: "noindex" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(quotesQuery),
   component: Admin,

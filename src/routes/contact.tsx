@@ -4,7 +4,8 @@ import { PageHero, Section, meta } from "@/components/site/Layout";
 import { site } from "@/content/site";
 
 export const Route = createFileRoute("/contact")({
-  head: () => meta("Contact", "Get in touch about a new website, a redesign, or custom business software."),
+  staticData: { sitemap: true },
+  head: () => meta("Contact", "Contact Caldren Technologies in Othello, WA at (509) 964-6931 about a new website, redesign, or custom business software.", "/contact"),
   component: Page,
 });
 

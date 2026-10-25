@@ -4,6 +4,7 @@ import { Section, meta } from "@/components/site/Layout";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [...meta("Admin Sign In", "Secure owner sign-in for Caldren Technologies quote requests.").meta, { name: "robots", content: "noindex" }] }),
   component: AuthPage,
 });
