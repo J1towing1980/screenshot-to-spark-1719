@@ -11,23 +11,23 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
-        <Link to="/" aria-label={`${site.name} — home`} className="flex items-center">
+        <Link to="/" aria-label={`${site.name} — home`} className="flex shrink-0 items-center">
           <img src={logoPrimary.url} alt="" width={1294} height={269} className="h-11 w-auto max-w-full sm:h-12 md:h-14" />
         </Link>
-        <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-7 lg:flex">
           {nav.map((n) => (
             <Link key={n.to} to={n.to} className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>
               {n.label}
             </Link>
           ))}
-          <Link to="/quote" className="btn-primary !py-2 !px-4 text-sm">Get a Free Quote</Link>
+          <Link to="/quote" className="btn-primary whitespace-nowrap !py-2 !px-4 text-sm">Get a Free Quote</Link>
         </nav>
-        <Button variant="ghost" size="icon" className="min-h-11 min-w-11 md:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
+        <Button variant="ghost" size="icon" className="min-h-11 min-w-11 lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </Button>
       </div>
       {open && (
-        <nav id="mobile-navigation" aria-label="Mobile" className="container-site flex flex-col gap-1 pb-5 md:hidden">
+        <nav id="mobile-navigation" aria-label="Mobile" className="container-site flex flex-col gap-1 pb-5 lg:hidden">
           {nav.map((n) => (
             <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="flex min-h-11 items-center py-2 text-base font-medium">{n.label}</Link>
           ))}
