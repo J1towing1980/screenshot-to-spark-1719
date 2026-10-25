@@ -2,15 +2,16 @@ import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 import { nav, site } from "@/content/site";
+import logoPrimary from "@/assets/caldren-logo-primary.png.asset.json";
+import logoWhite from "@/assets/caldren-logo-white.png.asset.json";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
-        <Link to="/" className="font-display leading-none tracking-tight">
-          <span className="block text-xl font-semibold">{site.logo.line1}<span className="text-accent">.</span></span>
-          <span className="mt-0.5 block text-[0.5em] font-semibold tracking-[0.35em] text-muted-foreground">{site.logo.line2}</span>
+        <Link to="/" aria-label={`${site.name} — home`} className="flex items-center">
+          <img src={logoPrimary.url} alt={site.name} className="h-10 w-auto md:h-12" />
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
           {nav.map((n) => (
@@ -41,10 +42,7 @@ export function SiteFooter() {
     <footer className="bg-ink text-ink-foreground">
       <div className="container-site grid gap-10 py-14 md:grid-cols-3">
         <div>
-          <p className="font-display leading-none tracking-tight">
-            <span className="block text-2xl font-semibold">{site.logo.line1}<span className="text-accent">.</span></span>
-            <span className="mt-1 block text-[0.5em] font-semibold tracking-[0.35em] text-ink-muted">{site.logo.line2}</span>
-          </p>
+          <img src={logoWhite.url} alt={site.name} className="h-12 w-auto" />
           <p className="mt-3 max-w-xs text-sm text-ink-muted">{site.tagline} for small and medium-sized businesses.</p>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-2 text-sm">
