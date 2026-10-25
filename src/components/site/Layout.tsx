@@ -11,7 +11,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
         <Link to="/" aria-label={`${site.name} — home`} className="flex items-center">
-          <img src={logoPrimary.url} alt={site.name} className="h-9 w-auto md:h-11" />
+          <img src={logoPrimary.url} alt={site.name} className="h-10 w-auto md:h-12" />
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
           {nav.map((n) => (
