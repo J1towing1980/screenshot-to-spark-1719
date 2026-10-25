@@ -11,7 +11,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
         <Link to="/" aria-label={`${site.name} — home`} className="flex items-center">
-          <img src={logoPrimary.url} alt={site.name} className="h-10 w-auto md:h-12" />
+          <img src={logoPrimary.url} alt={site.name} className="h-11 w-auto sm:h-12 md:h-14" />
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
           {nav.map((n) => (
@@ -42,7 +42,7 @@ export function SiteFooter() {
     <footer className="bg-ink text-ink-foreground">
       <div className="container-site grid gap-10 py-14 md:grid-cols-3">
         <div>
-          <img src={logoWhite.url} alt={site.name} className="h-12 w-auto" />
+          <img src={logoWhite.url} alt={site.name} className="h-12 w-auto md:h-14" />
           <p className="mt-3 max-w-xs text-sm text-ink-muted">{site.tagline} for small and medium-sized businesses.</p>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-2 text-sm">
