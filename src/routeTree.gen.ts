@@ -16,6 +16,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as QuoteRouteImport } from './routes/quote'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SoftwareRouteImport } from './routes/software'
 import { Route as WebsitesRouteImport } from './routes/websites'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -55,6 +56,11 @@ const QuoteRoute = QuoteRouteImport.update({
   path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SoftwareRoute = SoftwareRouteImport.update({
   id: '/software',
   path: '/software',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/quote': typeof QuoteRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/software': typeof SoftwareRoute
   '/websites': typeof WebsitesRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/quote': typeof QuoteRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/software': typeof SoftwareRoute
   '/websites': typeof WebsitesRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/portfolio': typeof PortfolioRoute
   '/quote': typeof QuoteRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/software': typeof SoftwareRoute
   '/websites': typeof WebsitesRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/quote'
+    | '/sitemap.xml'
     | '/software'
     | '/websites'
     | '/admin'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/quote'
+    | '/sitemap.xml'
     | '/software'
     | '/websites'
     | '/admin'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/quote'
+    | '/sitemap.xml'
     | '/software'
     | '/websites'
     | '/_authenticated/admin'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   PortfolioRoute: typeof PortfolioRoute
   QuoteRoute: typeof QuoteRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SoftwareRoute: typeof SoftwareRoute
   WebsitesRoute: typeof WebsitesRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/software': {
       id: '/software'
       path: '/software'
@@ -269,6 +289,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   PortfolioRoute: PortfolioRoute,
   QuoteRoute: QuoteRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SoftwareRoute: SoftwareRoute,
   WebsitesRoute: WebsitesRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
