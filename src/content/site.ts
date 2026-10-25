@@ -8,8 +8,7 @@ export const site = {
   tagline: "Websites & business software",
   email: "joelshop1900@hotmail.com",
   phone: "(509) 964-6931",
-  // PLACEHOLDER: still needs a real location.
-  location: "Your City, State",
+  location: "1980 S Broadway Ave, Othello, WA",
   hours: "Mon–Fri, 9am–5pm",
 };
 
