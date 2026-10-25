@@ -22,7 +22,7 @@ export function SiteHeader() {
           ))}
           <Link to="/quote" className="btn-primary whitespace-nowrap !py-2 !px-4 text-sm">Get a Free Quote</Link>
         </nav>
-        <Button variant="ghost" size="icon" className="min-h-11 min-w-11 lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>
+        <Button variant="ghost" size="icon" className="min-h-11 min-w-11 lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls={open ? "mobile-navigation" : undefined} onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </Button>
       </div>
