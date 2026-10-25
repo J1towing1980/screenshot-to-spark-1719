@@ -50,7 +50,7 @@
   --secondary-foreground: oklch(0.24 0.035 255);
   --muted: oklch(0.94 0.008 85);
   --muted-foreground: oklch(0.48 0.02 255);
-  --accent: oklch(0.64 0.15 45);
+  --accent: oklch(0.52 0.13 45);
   --accent-foreground: oklch(0.99 0.004 85);
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.99 0 0);
@@ -72,7 +72,9 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+  main, footer { overflow-wrap: anywhere; }
 }
 
 @utility container-site {
@@ -123,4 +125,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
 }

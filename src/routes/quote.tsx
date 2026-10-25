@@ -1,13 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { PageHero, Section, meta } from "@/components/site/Layout";
 import { serviceOptions, site } from "@/content/site";
 import { validateQuote, type QuoteErrors } from "@/lib/quote";
 import { submitQuote } from "@/lib/quote.functions";
 import { useServerFn } from "@tanstack/react-start";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/quote")({
-  head: () => meta("Request a Free Quote", "Tell us about your website or software project and receive a clear, no-pressure quote."),
+  staticData: { sitemap: true },
+  head: () => meta("Request a Free Quote", "Tell us about your website or software project and receive a clear, no-pressure quote.", "/quote"),
   component: Page,
 });
 
@@ -18,7 +20,7 @@ function Field({ label, name, error, optional, children }: { label: string; name
         {label} {optional && <span className="font-normal text-muted-foreground">(optional)</span>}
       </label>
       {children}
-      {error && <p id={`${name}-error`} className="mt-1 text-sm text-destructive">{error}</p>}
+      {error && <p role="alert" id={`${name}-error`} className="mt-1 text-sm text-destructive">{error}</p>}
     </div>
   );
 }
@@ -29,6 +31,8 @@ function Page() {
   const [busy, setBusy] = useState(false);
   const [formError, setFormError] = useState("");
   const submit = useServerFn(submitQuote);
+  const success = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (done) success.current?.focus(); }, [done]);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,7 +40,10 @@ function Page() {
     const errs = validateQuote(data);
     setErrors(errs);
     setFormError("");
-    if (Object.keys(errs).length) return;
+    if (Object.keys(errs).length) {
+      e.currentTarget.querySelector<HTMLElement>(`[name="${Object.keys(errs)[0]}"]`)?.focus();
+      return;
+    }
     setBusy(true);
     try {
       const res = await submit({ data });
@@ -59,7 +66,7 @@ function Page() {
       <PageHero eyebrow="Free quote" title="Tell us about your project." intro="Share a few details and we'll follow up with questions and a clear estimate." />
       <Section>
         {done ? (
-          <div role="status" className="max-w-2xl rounded-xl border border-border bg-card p-8">
+          <div ref={success} tabIndex={-1} role="status" className="max-w-2xl rounded-xl border border-border bg-card p-8">
             <h2 className="text-2xl font-medium">Thanks — we received your request</h2>
             <p className="mt-3 text-muted-foreground">
               Your quote request was saved. We'll review your project details and follow up by email.
@@ -67,7 +74,7 @@ function Page() {
           </div>
 
         ) : (
-          <form noValidate onSubmit={onSubmit} className="grid max-w-3xl gap-6 md:grid-cols-2">
+          <form noValidate aria-busy={busy} onSubmit={onSubmit} className="grid max-w-3xl gap-6 md:grid-cols-2">
             <div className="hidden" aria-hidden="true">
               <label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
             </div>
@@ -102,7 +109,7 @@ function Page() {
             </Field>
             <div className="md:col-span-2">
               {formError && <p role="alert" className="mb-4 text-sm text-destructive">{formError}</p>}
-              <button type="submit" disabled={busy} className="btn-primary">{busy ? "Sending…" : "Request my quote"}</button>
+              <Button type="submit" disabled={busy} className="btn-primary h-auto">{busy ? "Sending…" : "Request my quote"}</Button>
             </div>
           </form>
         )}

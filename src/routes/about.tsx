@@ -3,7 +3,8 @@ import { CtaBand, PageHero, Section, meta } from "@/components/site/Layout";
 import { reasons } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
-  head: () => meta("About Us", "Our mission: help businesses establish a professional online presence and simplify operations through modern, affordable technology."),
+  staticData: { sitemap: true },
+  head: () => meta("About Us", "Our mission: help businesses establish a professional online presence and simplify operations through modern, affordable technology.", "/about"),
   component: Page,
 });
 

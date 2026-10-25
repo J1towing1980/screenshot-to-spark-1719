@@ -4,7 +4,8 @@ import { CtaBand, PageHero, Section, meta } from "@/components/site/Layout";
 import { projects } from "@/content/site";
 
 export const Route = createFileRoute("/portfolio")({
-  head: () => meta("Portfolio", "Website and software projects for local businesses, including towing, auto repair, and receipt management."),
+  staticData: { sitemap: true },
+  head: () => meta("Portfolio", "Website and software projects for local businesses, including towing, auto repair, and receipt management.", "/portfolio"),
   component: Page,
 });
 
@@ -17,7 +18,7 @@ function Page() {
           {projects.map((p, i) => (
             <article key={p.name} className="group flex flex-col rounded-xl border border-border bg-card">
               <div className="flex aspect-[16/9] items-center justify-center rounded-t-xl bg-secondary">
-                <span className="font-display text-6xl text-muted-foreground/40">{String(i + 1).padStart(2, "0")}</span>
+                <span aria-hidden="true" className="font-display text-6xl text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
               </div>
               <div className="flex flex-1 flex-col p-7">
                 <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider">

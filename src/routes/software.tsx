@@ -3,7 +3,8 @@ import { CtaBand, FeatureGrid, PageHero, Section, meta } from "@/components/site
 import { softwareServices } from "@/content/site";
 
 export const Route = createFileRoute("/software")({
-  head: () => meta("Custom Business Software", "Custom software for business operations: receipt management, employee time tracking, scheduling, invoicing, inventory, and more."),
+  staticData: { sitemap: true },
+  head: () => meta("Custom Business Software", "Custom software for business operations: receipt management, employee time tracking, scheduling, invoicing, inventory, and more.", "/software"),
   component: Page,
 });
 

@@ -4,7 +4,8 @@ import { CtaBand, Section, meta } from "@/components/site/Layout";
 import { process, projects, reasons, softwareServices, websiteServices } from "@/content/site";
 
 export const Route = createFileRoute("/")({
-  head: () => meta("Websites & Business Software for Small Businesses", "Professional, mobile-friendly websites and custom business software for contractors, auto shops, towing, cleaning, restaurants, and more."),
+  staticData: { sitemap: true },
+  head: () => meta("Websites & Business Software for Small Businesses", "Professional, mobile-friendly websites and custom business software for contractors, auto shops, towing, cleaning, restaurants, and more.", "/"),
   component: Home,
 });
 

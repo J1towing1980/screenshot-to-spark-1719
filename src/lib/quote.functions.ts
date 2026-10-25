@@ -33,7 +33,8 @@ export const submitQuote = createServerFn({ method: "POST" })
     const ip = getRequestHeader("cf-connecting-ip") ?? getRequestHeader("x-forwarded-for")?.split(",")[0] ?? "unknown";
     const ipHash = await hashIp(ip);
     const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-    const { count } = await supabaseAdmin.from("quote_requests").select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).gte("created_at", since);
+    const { count, error: rateLimitError } = await supabaseAdmin.from("quote_requests").select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).gte("created_at", since);
+    if (rateLimitError) return { ok: false, error: "We couldn't save your request right now. Please try again in a moment." };
     if ((count ?? 0) >= 5) return { ok: false, error: "Too many requests from your connection. Please try again in an hour or email us directly." };
 
     const { data: savedQuote, error } = await supabaseAdmin.from("quote_requests").insert({
@@ -51,8 +52,12 @@ export const submitQuote = createServerFn({ method: "POST" })
       console.error("quote insert failed");
       return { ok: false, error: "We couldn't save your request right now. Please try again in a moment." };
     }
-    const { notifyQuoteOwner } = await import("./quote-notification.server");
-    await notifyQuoteOwner(savedQuote.id, data);
+    try {
+      const { notifyQuoteOwner } = await import("./quote-notification.server");
+      await notifyQuoteOwner(savedQuote.id, data);
+    } catch {
+      console.warn("Quote saved; notification unavailable");
+    }
     return { ok: true };
   });
 
