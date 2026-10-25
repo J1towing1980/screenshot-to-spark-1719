@@ -1,13 +1,13 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { Section } from "@/components/site/Layout";
+import { Section, meta } from "@/components/site/Layout";
 import { supabase } from "@/integrations/supabase/client";
 import { listQuotes } from "@/lib/quote.functions";
 
 const quotesQuery = queryOptions({ queryKey: ["admin-quotes"], queryFn: () => listQuotes() });
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({ meta: [{ title: "Quote Requests | Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [...meta("Admin Quote Requests", "Private quote request dashboard for the Caldren Technologies owner.").meta, { name: "robots", content: "noindex" }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(quotesQuery),
   component: Admin,
 });
