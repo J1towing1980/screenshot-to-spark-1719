@@ -3,8 +3,7 @@
 
 export const site = {
   name: "Caldren Technologies",
-  // Wordmark shown in the header/footer: stacked lines, second letter-spaced.
-  logo: { line1: "CALDREN", line2: "TECHNOLOGIES" },
+  // Header/footer show the supplied logo artwork (src/assets), not a text wordmark.
   tagline: "Websites & business software",
   email: "joelshop1900@hotmail.com",
   phone: "(509) 964-6931",
