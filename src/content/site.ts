@@ -2,10 +2,12 @@
 // without touching page components.
 
 export const site = {
-  // PLACEHOLDER: replace with your real company name and contact details.
-  name: "Your Studio",
+  name: "Caldren Technologies",
+  // Wordmark shown in the header/footer: stacked lines, second letter-spaced.
+  logo: { line1: "CALDREN", line2: "TECHNOLOGIES" },
   tagline: "Websites & business software",
-  email: "hello@example.com",
+  email: "joelshop1900@hotmail.com",
+  // PLACEHOLDER: still needs a real phone number and location.
   phone: "(000) 000-0000",
   location: "Your City, State",
   hours: "Mon–Fri, 9am–5pm",
