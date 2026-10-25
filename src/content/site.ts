@@ -7,8 +7,8 @@ export const site = {
   logo: { line1: "CALDREN", line2: "TECHNOLOGIES" },
   tagline: "Websites & business software",
   email: "joelshop1900@hotmail.com",
-  // PLACEHOLDER: still needs a real phone number and location.
-  phone: "(000) 000-0000",
+  phone: "(509) 964-6931",
+  // PLACEHOLDER: still needs a real location.
   location: "Your City, State",
   hours: "Mon–Fri, 9am–5pm",
 };
