@@ -36,7 +36,7 @@ export const submitQuote = createServerFn({ method: "POST" })
     const { count } = await supabaseAdmin.from("quote_requests").select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).gte("created_at", since);
     if ((count ?? 0) >= 5) return { ok: false, error: "Too many requests from your connection. Please try again in an hour or email us directly." };
 
-    const { error } = await supabaseAdmin.from("quote_requests").insert({
+    const { data: savedQuote, error } = await supabaseAdmin.from("quote_requests").insert({
       business_name: data.businessName,
       contact_name: data.contactName,
       email: data.email,
@@ -46,12 +46,13 @@ export const submitQuote = createServerFn({ method: "POST" })
       budget: data.budget || null,
       timeframe: data.timeframe || null,
       ip_hash: ipHash,
-    });
-    if (error) {
-      console.error("quote insert failed", error.message);
+    }).select("id").single();
+    if (error || !savedQuote) {
+      console.error("quote insert failed");
       return { ok: false, error: "We couldn't save your request right now. Please try again in a moment." };
     }
-    // Owner email notification: not wired yet — requires a verified sender domain and recipient address.
+    const { notifyQuoteOwner } = await import("./quote-notification.server");
+    await notifyQuoteOwner(savedQuote.id, data);
     return { ok: true };
   });
 

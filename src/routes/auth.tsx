@@ -1,10 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
-import { Section } from "@/components/site/Layout";
+import { Section, meta } from "@/components/site/Layout";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Admin Sign In" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [...meta("Admin Sign In", "Secure owner sign-in for Caldren Technologies quote requests.").meta, { name: "robots", content: "noindex" }] }),
   component: AuthPage,
 });
 
