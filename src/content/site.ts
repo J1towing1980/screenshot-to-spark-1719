@@ -5,7 +5,7 @@ export const site = {
   name: "Caldren Technologies",
   // Header/footer show the supplied logo artwork (src/assets), not a text wordmark.
   tagline: "Websites & business software",
-  email: "joelshop1900@hotmail.com",
+  email: "joelr@j1towingautorepair.com",
   phone: "(509) 964-6931",
   location: "1980 S Broadway Ave, Othello, WA",
   hours: "Mon–Fri, 9am–5pm",
