@@ -2,8 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 import { nav, site } from "@/content/site";
-import logoPrimary from "@/assets/caldren-logo-primary.png.asset.json";
-import logoWhite from "@/assets/caldren-logo-white.png.asset.json";
 import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
@@ -12,7 +10,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
         <Link to="/" aria-label={`${site.name} — home`} className="flex shrink-0 items-center">
-          <img src={logoPrimary.url} alt="" width={1294} height={269} className="h-11 w-auto max-w-full sm:h-12 md:h-14" />
+          <img src="/caldren-logo-primary.png" alt="" width={1294} height={269} className="h-11 w-auto max-w-full sm:h-12 md:h-14" />
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-7 lg:flex">
           {nav.map((n) => (
@@ -43,7 +41,7 @@ export function SiteFooter() {
     <footer className="bg-ink text-ink-foreground">
       <div className="container-site grid gap-10 py-14 md:grid-cols-3">
         <div>
-          <img src={logoWhite.url} alt={site.name} width={1256} height={267} loading="lazy" className="h-12 w-auto max-w-full md:h-14" />
+          <img src="/caldren-logo-white.png" alt={site.name} width={1256} height={267} loading="lazy" className="h-12 w-auto max-w-full md:h-14" />
           <p className="mt-3 max-w-xs text-sm text-ink-muted">{site.tagline} for small and medium-sized businesses.</p>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-2 text-sm">

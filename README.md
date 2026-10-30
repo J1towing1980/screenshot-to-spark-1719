@@ -1,24 +1,38 @@
-# Screenshot To Spark
+# Caldren Technologies website
 
-Implement exactly the screenshot and nothing else
+Marketing site and quote system for Caldren Technologies.
 
-This project was built with [Lovable](https://lovable.dev).
+## How it runs
 
-## Build with Lovable
+- **Hosting:** Cloudflare Workers, project `screenshot-to-spark-1719`. Every push to `main` on GitHub rebuilds and deploys the site.
+- **Database and admin login:** Supabase project `pvetybdqnedaupiwngcv`. The table setup is in `drizzle/migrations/`.
+- **Quote emails:** Resend.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/322a665f-8151-4785-8aa8-abf45039b3db).
+## Settings
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+Secrets are stored in Cloudflare under **Workers & Pages > screenshot-to-spark-1719 > Settings > Variables and Secrets**:
 
-## Development
+| Name | What it is |
+|---|---|
+| `SUPABASE_URL` | Supabase project address |
+| `SUPABASE_PUBLISHABLE_KEY` | Supabase public key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase secret key (server only) |
+| `RESEND_API_KEY` | Resend key for quote emails |
+| `EMAIL_FROM` | Sender shown on quote emails |
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+The browser uses the `VITE_SUPABASE_*` values in `.env`, which are public.
+
+## Editing content
+
+Company info, services, projects and navigation live in `src/content/site.ts`.
+
+## Local development
+
+You need Node.js 22+ or Bun.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+git clone https://github.com/J1towing1980/screenshot-to-spark-1719.git
+cd screenshot-to-spark-1719
+bun install
+bun run dev
 ```
