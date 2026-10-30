@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 const { send } = vi.hoisted(() => ({ send: vi.fn() }))
-vi.mock('./email-templates/send-email', () => ({ sendTemplateEmail: send }))
+vi.mock('./email-templates/send-email', () => ({ sendTemplateEmail: send, EmailSendError: class extends Error {} }))
 import { notifyQuoteOwner } from './quote-notification.server'
 import { template } from './email-templates/quote-notification'
 

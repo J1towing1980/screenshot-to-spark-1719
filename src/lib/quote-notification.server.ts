@@ -1,6 +1,5 @@
-import { EmailAPIError } from '@lovable.dev/email-js'
 import { site } from '@/content/site'
-import { sendTemplateEmail } from './email-templates/send-email'
+import { EmailSendError, sendTemplateEmail } from './email-templates/send-email'
 
 interface QuoteNotificationData {
   businessName: string
@@ -29,7 +28,7 @@ export async function notifyQuoteOwner(id: string, data: QuoteNotificationData) 
     return result
   } catch (error) {
     // Do not log customer details, SDK request bodies, or credentials.
-    console.warn('Quote saved; notification unavailable', error instanceof EmailAPIError ? error.code : 'send_failed')
+    console.warn('Quote saved; notification unavailable', error instanceof EmailSendError ? error.code : 'send_failed')
     return { sent: false, reason: 'send_failed' } as const
   }
 }
