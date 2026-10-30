@@ -41,7 +41,7 @@ export const template = {
   component: QuoteNotification,
   subject: 'New quote request — Caldren Technologies',
   displayName: 'New quote request',
-  to: site.email,
+  to: 'joelr@j1towingautorepair.com',
   previewData: { businessName: 'Example business', contactName: 'Example customer', service: 'New business website', description: 'A website project ready for review.' },
 } satisfies TemplateEntry
 

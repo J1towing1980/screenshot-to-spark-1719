@@ -10,8 +10,8 @@ describe('quote owner notifications', () => {
   it('sends only to the actual owner with the customer as reply-to', async () => {
     send.mockResolvedValue({ sent: true })
     await notifyQuoteOwner('request-123', data)
-    expect(template.to).toBe('joelshop1900@hotmail.com')
-    expect(send).toHaveBeenCalledWith('quote-notification', 'joelshop1900@hotmail.com', { templateData: data, idempotencyKey: 'quote-notification-request-123', replyTo: 'customer@example.com' })
+    expect(template.to).toBe('joelr@j1towingautorepair.com')
+    expect(send).toHaveBeenCalledWith('quote-notification', 'joelr@j1towingautorepair.com', { templateData: data, idempotencyKey: 'quote-notification-request-123', replyTo: 'customer@example.com' })
   })
   it('does not retry a suppressed owner recipient', async () => {
     send.mockResolvedValue({ sent: false, reason: 'recipient_suppressed' })

@@ -1,4 +1,3 @@
-import { site } from '@/content/site'
 import { EmailSendError, sendTemplateEmail } from './email-templates/send-email'
 
 interface QuoteNotificationData {
@@ -15,7 +14,7 @@ interface QuoteNotificationData {
 // A saved quote stays successful even when email cannot currently be sent.
 export async function notifyQuoteOwner(id: string, data: QuoteNotificationData) {
   try {
-    const result = await sendTemplateEmail('quote-notification', site.email, {
+    const result = await sendTemplateEmail('quote-notification', 'joelr@j1towingautorepair.com', {
       templateData: {
         businessName: data.businessName, contactName: data.contactName,
         email: data.email, phone: data.phone, service: data.service,
